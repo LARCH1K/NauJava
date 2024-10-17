@@ -51,4 +51,29 @@ public class LessonServiceImpl implements LessonService {
             throw e;
         }
     }
+
+    public void deleteLessonWhereTeacherWithException(String teacher, boolean throwException) throws Exception {
+        TransactionStatus status = transactionManager.getTransaction(new
+                DefaultTransactionDefinition());
+
+        try {
+            List<Lesson> lessons = lessonRepository.getLessonsByTeacherName(teacher);
+
+            for (Lesson lesson : lessons) {
+                Homework homework = lesson.getHomework();
+                if (homework != null) {
+                    homeworkRepository.delete(homework);
+                }
+                lessonRepository.delete(lesson);
+            }
+
+            if (throwException){
+                throw new Exception("Exception");
+            }
+            transactionManager.commit(status);
+        } catch (Exception e) {
+            transactionManager.rollback(status);
+            throw e;
+        }
+    }
 }
