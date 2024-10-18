@@ -59,7 +59,7 @@ public class Homework {
         return createdAt;
     }
 
-    public void setCreationAt(LocalDate createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
