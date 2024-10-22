@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Homework List</title>
+</head>
+<body>
+<h1>Homework List</h1>
+<table border="1">
+    <tr>
+        <th>id</th>
+        <th>description</th>
+        <th>mark</th>
+        <th>createdAt</th>
+    </tr>
+    <tr th:each="Homework : ${Homeworks}">
+        <td th:text="${Homework.getId}"></td>
+        <td th:text="${Homework.getDescription}"></td>
+        <td th:text="${Homework.getMark}"></td>
+        <td th:text="${Homework.getCreatedAt}"></td>
+    </tr>
+</table>
+</body>
+</html>
