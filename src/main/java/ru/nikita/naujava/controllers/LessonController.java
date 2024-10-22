@@ -1,5 +1,6 @@
 package ru.nikita.naujava.controllers;
 
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,10 @@ public class LessonController {
 
     @GetMapping("/getLessonsByTeacherName")
     public List<Lesson> getLessonsByTeacherName(@RequestParam String teacher) {
-        return lessonRepository.getLessonsByTeacherName(teacher);
+        List<Lesson> lessons = lessonRepository.getLessonsByTeacherName(teacher);
+        if (lessons.isEmpty()) {
+            throw new ResourceNotFoundException("No lessons found for teacher " + teacher);
+        }
+        return lessons;
     }
 }
